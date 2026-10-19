@@ -137,7 +137,7 @@ window.SITE = {
     id: "tangyak-2026-10",
     startDate: "",
     endDate: "",
-    title: "가족사랑 한의원 증상별 탕약 안내",
+    title: "가족사랑 한의원 증상별 탕약",
     lead: "한의원에서 직접 달인 탕약입니다.",
     image: "about/notice-tangyak.png",
     imageAlt: "한방 감기약과 어혈약 탕약 파우치",
