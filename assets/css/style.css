@@ -610,7 +610,7 @@ body.notice-open { overflow: hidden; }
 .notice-body { overflow-y: auto; padding: 28px 24px 24px; }
 .notice-body h2 { font-size: var(--t-lg); padding-right: 36px; }
 .notice-lead { color: var(--ink-soft); margin: 6px 0 18px; font-size: var(--t-sm); }
-.notice-img { width: 100%; height: 150px; object-fit: cover; object-position: center 40%; border-radius: 12px; margin-bottom: 18px; }
+.notice-img { width: 100%; height: auto; aspect-ratio: 427 / 246; border-radius: 12px; margin-bottom: 18px; }
 .notice-item + .notice-item { margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--line); }
 .notice-item h3 { font-size: var(--t-base); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 6px; }
 .notice-tag {
@@ -664,7 +664,7 @@ body.notice-open { overflow: hidden; }
   .notice-modal { max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); }
   .notice-body { padding: 22px 18px 18px; }
   .notice-body h2 { font-size: var(--t-md); }
-  .notice-img { height: 110px; margin-bottom: 14px; }
+  .notice-img { margin-bottom: 14px; }
   .notice-item + .notice-item { margin-top: 14px; padding-top: 14px; }
   .notice-price { margin-top: 16px; padding: 10px 14px; }
   .notice-price strong { font-size: var(--t-md); }
