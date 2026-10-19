@@ -98,7 +98,7 @@
         <div class="footer-info">
           <p>${esc(C.address)}</p>
           <p>전화 <a href="tel:${C.phoneTel}">${esc(C.phone)}</a></p>
-          <p>대표원장 ${esc(S.doctor.name)}</p>
+          <p>원장 ${esc(S.doctor.name)}</p>
         </div>
         <nav aria-label="하단 메뉴">
           <ul class="footer-nav">${S.nav.map(n => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join("")}</ul>

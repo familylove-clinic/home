@@ -73,10 +73,10 @@ window.SITE = {
   // 실제 원장님 사진만 사용해 주세요.
   doctor: {
     name: "윤기붕",
-    role: "대표원장",
+    role: "원장",
     specialty: "한방침구과 전문의",
     photo: "about/doctor.png",
-    photoAlt: "웃고 있는 윤기붕 대표원장 일러스트",
+    photoAlt: "웃고 있는 윤기붕 원장 일러스트",
     // 원내 약력 현판(about/doctor2.jpg) 내용. title: 묶음 제목 / items: 항목
     career: [
       {
