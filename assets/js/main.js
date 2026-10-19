@@ -184,6 +184,69 @@
       </details>`).join("");
   });
 
+  /* 긴급 공지 팝업: site-config.js 의 notice 에서 켜고 끄고 내용을 고칩니다 */
+  const N = S.notice;
+  if (N && N.enabled) showNotice();
+
+  function showNotice() {
+    const d = new Date();
+    const ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    if ((N.startDate && ymd < N.startDate) || (N.endDate && ymd > N.endDate)) return;
+    const hideKey = "notice-hide-" + N.id;
+    try { if (localStorage.getItem(hideKey) === ymd) return; } catch (e) { /* 저장소를 못 쓰면 매번 보여 줌 */ }
+
+    const wrap = document.createElement("div");
+    wrap.className = "notice-backdrop";
+    wrap.innerHTML = `
+      <div class="notice-modal" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="notice-modal-title" aria-describedby="notice-modal-lead">
+        <button type="button" class="notice-x" data-notice-close aria-label="공지 닫기"></button>
+        <div class="notice-body">
+          <h2 id="notice-modal-title">${esc(N.title)}</h2>
+          <p id="notice-modal-lead" class="notice-lead">${rich(N.lead || "")}</p>
+          ${N.image ? `<img class="notice-img" src="${esc(N.image)}" alt="${esc(N.imageAlt || "")}">` : ""}
+          ${(N.items || []).map(it => `
+          <section class="notice-item">
+            <h3>${esc(it.name)}${it.tag ? ` <span class="notice-tag">${esc(it.tag)}</span>` : ""}</h3>
+            <p>${rich(it.text)}</p>
+          </section>`).join("")}
+          ${N.price ? `<p class="notice-price"><span>${esc(N.price.label)}</span><strong>${esc(N.price.value)}</strong></p>` : ""}
+          ${N.notes && N.notes.length ? `<ul class="notice-notes">${N.notes.map(n => `<li>${rich(n)}</li>`).join("")}</ul>` : ""}
+          <a class="btn btn-primary notice-call" href="tel:${C.phoneTel}">전화 문의 ${esc(C.phone)}</a>
+        </div>
+        <div class="notice-foot">
+          <button type="button" data-notice-today>오늘 하루 보지 않기</button>
+          <button type="button" data-notice-close>닫기</button>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+    document.body.classList.add("notice-open");
+
+    const modal = $(".notice-modal", wrap);
+    const lastFocus = document.activeElement;
+    const close = () => {
+      wrap.remove();
+      document.body.classList.remove("notice-open");
+      document.removeEventListener("keydown", onKey);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    };
+    const onKey = e => {
+      if (e.key === "Escape") { close(); return; }
+      if (e.key !== "Tab") return;
+      // 팝업 안에서만 포커스 이동
+      const f = $$("a[href], button", modal);
+      if (e.shiftKey && (document.activeElement === f[0] || document.activeElement === modal)) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    $$("[data-notice-close]", wrap).forEach(b => b.addEventListener("click", close));
+    $("[data-notice-today]", wrap).addEventListener("click", () => {
+      try { localStorage.setItem(hideKey, ymd); } catch (e) { /* 무시 */ }
+      close();
+    });
+    wrap.addEventListener("click", e => { if (e.target === wrap) close(); });
+    modal.focus();
+  }
+
   /* 8체질 한약장: 서랍을 누르면 오른쪽 카드에 체질 설명이 나옵니다 */
   const T = window.CONSTITUTIONS;
   const cabinet = $("[data-cabinet]");
