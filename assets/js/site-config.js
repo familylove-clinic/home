@@ -133,7 +133,7 @@ window.SITE = {
   // - id: 공지 내용을 새로 바꿀 때마다 다른 값으로 바꿔 주세요. ('오늘 하루 보지 않기'를 누른 분에게도 새 공지가 다시 보입니다.)
   // - startDate, endDate: 이 기간에만 팝업이 뜹니다. ("2026-11-01" 형식, 비워 두면 기간 제한 없음)
   notice: {
-    enabled: true,
+    enabled: false,
     id: "tangyak-2026-10",
     startDate: "",
     endDate: "",
